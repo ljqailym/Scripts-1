@@ -1,11 +1,10 @@
-# 快手视频刷金币测试，抓包获取secrets
 
-name: 快手视频
+name: 京东小窝
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '*/8 * * * *'
+     - cron: '2 16 * * *'
   watch:
     types: started
 jobs:
@@ -13,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     env:
-        KUAISHOUMV: ${{ secrets.KUAISHOUMV }}
-        TZ: Asia/shanghai
+        JD_COOKIE: ${{ secrets.JD_COOKIE }}
     steps:
       - name: Checkout
         run: |
@@ -27,11 +25,11 @@ jobs:
         run: |
           cd ~/Scripts
           npm install
-      - name: '运行 【快手视频】'
-        if: env.KUAISHOUMV
+      - name: '运行 【京东小窝】'
+        if: env.JD_COOKIE
         run: |
           cd ~/Scripts
-          node Task/Auto_Kuaishou.js
+          node Task/jd_woHome.js
         env:
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
