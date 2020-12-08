@@ -136,7 +136,7 @@ if (isGetCookie) {
       await getTotal();
       await showmsg();
     if ($.isNode()){
-       if (readnum%notifyInterval==0&&Total_Earn.data.wealth[1].title > 2){
+       if (readnum%notifyInterval==0&&cashtotal > 2){
      await notify.sendNotify($.name,subTile+'\n'+detail)
        }
      }
@@ -329,9 +329,10 @@ function Redpack() {
     setTimeout(()=>{
       const cashUrl = {
         url: `${TX_HOST}activity/redpack/get?isJailbreak=0&${ID}`,
-        headers: {Cookie: cookieVal},
+        headers: {Cookie:cookieVal,"Content-Type": "application/x-www-form-urlencoded","User-Agent": "QQNews/6.3.40 (iPhone; iOS 14.2; Scale/3.00)"},
         body: redbody
       }
+
       $.post(cashUrl, (error, response, data) => {
         let rcash = JSON.parse(data)
         console.log(data)
@@ -371,7 +372,8 @@ function getTotal() {
         $.msg("获取收益信息失败‼️", "", error)
       } else {
         const Total_Earn = JSON.parse(data)
-        subTile = '【收益总计】'+ Total_Earn.data.wealth[0].title +'金币  '+"钱包: " + Total_Earn.data.wealth[1].title+'元'
+        cashtotal =Total_Earn.data.wealth[1].title
+        subTile = '【收益总计】'+ Total_Earn.data.wealth[0].title +'金币  '+"钱包: " + cashtotal+'元'
      // $.log("钱包收益共计"+obj.data.wealth[1].title+"元")
       }
       resolve()
