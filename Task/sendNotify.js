@@ -291,7 +291,7 @@ function iGotNotify(text, desp, params={}){
       if(!IGOT_PUSH_KEY_REGX.test(IGOT_PUSH_KEY)) {
         console.log('\n您所提供的IGOT_PUSH_KEY无效\n')
         resolve()
-        return 
+        return
       }
       const options = {
         url: `https://push.hellyw.com/${IGOT_PUSH_KEY.toLowerCase()}`,
